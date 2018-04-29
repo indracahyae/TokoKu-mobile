@@ -1,0 +1,38 @@
+ant design mobile       /mobile ui
+react-native-navbar     /navbar
+react-router-native     /navigasi
+react-redux             /manajemen state atau data
+validatorjs             /validasi form data
+axios                   /http request                  
+
+adb reverse tcp:8081 tcp:8081
+cd android && gradlew clean
+C:\Users\IndraCahyaEdytya\AppData\Local\Android\sdk\platform-tools
+referensi -> tokopedia, traveloka, gojek
+
+do list:
+* desain ui @paper
+* desain ui @coding
+tray important modul
+build apk
+try modul was created
+
+referensi react router
+https://www.youtube.com/watch?v=u8UoldEIlnQ
+
+
+SITE MAP (MY)
+Home    :
+  list barang > detail barang > form pembelian > (masuk keranjang), confirm(lanjut belanja/ bayar)
+  jika bayar > kranjang > pembayaran (tanya setuju untuk membayar) > info cara pembayaran & batas waktu nya
+Order   :
+  Konfirmasi pembayaran > list bukti upload, (upload baru)
+  daftar pembelian > detail transaksi
+Help    :
+  list topik Informasi > detail keterangan
+Account : 
+  login ?
+    y > list view data (edit, log out) > edit form
+    n > form (login, register)
+  
+  
