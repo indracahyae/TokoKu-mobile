@@ -5,6 +5,7 @@ react-redux             /manajemen state atau data
 validatorjs             /validasi form data
 axios                   /http request                  
 
+adb devices
 adb reverse tcp:8081 tcp:8081
 cd android && gradlew clean
 C:\Users\IndraCahyaEdytya\AppData\Local\Android\sdk\platform-tools
@@ -32,7 +33,7 @@ Help    :
   list topik Informasi > detail keterangan
 Account : 
   login ?
-    y > list view data (edit, log out) > edit form
+    y > list view data (edit, log out) > edit form    /DISINI
     n > form (login, register)
   
   

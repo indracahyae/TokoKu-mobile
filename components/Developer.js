@@ -4,6 +4,10 @@ import {
 } from 'react-native';
 import { Button, WhiteSpace, WingBlank, Modal, Icon } from 'antd-mobile';
 import NavigationBar from 'react-native-navbar';
+import LeftButton from './leftButton';
+import {history} from '../App';
+import {connect} from 'react-redux';
+
 const Operation = Modal.operation;
 
 const navBarConfig = {
@@ -14,16 +18,16 @@ const navBarConfig = {
 
   },
   title : {
-    title: 'TokoKu',
+    title: 'Pembuat',
     tintColor: 'white'
   }
 };
 
-export default class Home extends Component {
+class Dev extends Component {
 
   constructor(props){
     super(props);
-    console.log('home');
+    console.log(this.props);
   }
 
   render() {
@@ -42,12 +46,13 @@ export default class Home extends Component {
           <NavigationBar
             style={{backgroundColor:'#74b9ff'}}
             title={navBarConfig.title}
+            leftButton={<LeftButton onPress={()=>history.goBack()}/>}
             rightButton={
               <View style={{marginTop:13,marginRight:10}}>
                 <TouchableOpacity onPress={
                   () => Operation([
                     { text: 'opsi', onPress: () => console.log('opsi1') },
-                    { text: 'Pembuat App', onPress: () => this.props.history.push("/dev") },
+                    { text: 'opsi', onPress: () => console.log('opsi1') },
                   ])
                 }>
                   <Icon type="ellipsis" size="sm" color="white" />
@@ -56,15 +61,23 @@ export default class Home extends Component {
             }
           />
         </View>
-        <ScrollView style={{marginBottom:45,marginTop:10}}>
+        <ScrollView style={{ height: '100%', width: '100%',marginTop:10 }}>
           <WingBlank size='md'>
-            <Text onPress={()=>{
-              this.props.history.push("/detailBarang")
-            }}
-            > Home</Text>
+            <Text> Dev</Text>
           </WingBlank>
         </ScrollView>
       </View>
     );
   }
 }
+
+function mapStateToProps(state){
+  return{
+    allState: state
+  };
+}
+const mapDispatchToProps = (dispatch) => ({
+  dispatch
+})
+Dev = connect(mapStateToProps,mapDispatchToProps)(Dev);
+export default Dev;
