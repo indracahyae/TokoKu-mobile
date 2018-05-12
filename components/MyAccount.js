@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,View,Text,StatusBar,TouchableOpacity,ScrollView
+  StyleSheet,View,Text,StatusBar,TouchableOpacity,ScrollView,Image
 } from 'react-native';
-import { Button, WhiteSpace, WingBlank, Modal, Icon, List } from 'antd-mobile';
+import { Button, WhiteSpace, WingBlank,Modal,Icon,List,Card} from 'antd-mobile';
 import NavigationBar from 'react-native-navbar';
 import {connect} from 'react-redux';
 import {logout} from '../actions';
@@ -20,7 +20,7 @@ const navBarConfig = {
 
     },
     title : {
-      title: 'My Account',
+      title: 'Akun',
       tintColor: 'white'
     }
 };
@@ -48,7 +48,8 @@ class MyAccount extends Component {
                 <View style={{marginTop:13,marginRight:10}}>
                   <TouchableOpacity onPress={
                     () => Operation([
-                      { text: 'Edit account', onPress: () => console.log('opsi2') },
+                      { text: 'Edit account', onPress: () => this.props.history.push("/editAkun") },
+                      { text: 'Edit password', onPress: () => console.log('opsi2') },
                       { text: 'Log out', onPress: () => this.props.dispatch(logout('')) },
                     ])
                   }>
@@ -61,9 +62,64 @@ class MyAccount extends Component {
         <ScrollView style={{marginBottom:45,marginTop:10}}>
           <WingBlank size='md'>
             <View>
+              <Card>
+                <Card.Header
+                  title=""
+                  thumb={<Image source={{uri: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png'}}
+                            style={{width: 50, height: 50,borderRadius:10,marginRight:10}} />}
+                  extra={<Text>Poin Anda 100</Text>}
+                />
+              </Card>
               <List className="my-list">
-                <Item arrow={null} onClick={() => {}}>my account</Item>
-                
+                <Item
+                  arrow={null}
+                  multipleLine
+                  onClick={() => {}}
+                >
+                  Nama <Brief>Indra Cahya E</Brief>
+                </Item>
+                <Item
+                  arrow={null}
+                  multipleLine
+                  onClick={() => {}}
+                >
+                  Username <Brief>........</Brief>
+                </Item>
+                <Item
+                  arrow={null}
+                  multipleLine
+                  onClick={() => {}}
+                >
+                  Kelamin <Brief>........</Brief>
+                </Item>
+                <Item
+                  arrow={null}
+                  multipleLine
+                  onClick={() => {}}
+                >
+                  Tanggal Lahir <Brief>........</Brief>
+                </Item>
+                <Item
+                  arrow={null}
+                  multipleLine
+                  onClick={() => {}}
+                >
+                  Alamat <Brief>........</Brief>
+                </Item>
+                <Item
+                  arrow={null}
+                  multipleLine
+                  onClick={() => {}}
+                >
+                  Email <Brief>........</Brief>
+                </Item>
+                <Item
+                  arrow={null}
+                  multipleLine
+                  onClick={() => {}}
+                >
+                  Telepon <Brief>........</Brief>
+                </Item>
               </List>
             </View>
           </WingBlank>

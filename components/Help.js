@@ -17,7 +17,7 @@ const navBarConfig = {
 
     },
     title : {
-      title: 'Help',
+      title: 'Bantuan',
       tintColor: 'white'
     }
 };

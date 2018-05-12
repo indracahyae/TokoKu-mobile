@@ -14,7 +14,7 @@ const navBarConfig = {
 
     },
     title : {
-      title: 'Order',
+      title: 'Pembelian',
       tintColor: 'white'
     }
 };

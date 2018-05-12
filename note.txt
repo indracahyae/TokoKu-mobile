@@ -12,8 +12,8 @@ C:\Users\IndraCahyaEdytya\AppData\Local\Android\sdk\platform-tools
 referensi -> tokopedia, traveloka, gojek
 
 do list:
-* desain ui @paper
-* desain ui @coding
+desain ui @paper
+desain ui @coding   /disini
 tray important modul
 build apk
 try modul was created
@@ -26,14 +26,14 @@ SITE MAP (MY)
 Home    :
   list barang > detail barang > form pembelian > (masuk keranjang), confirm(lanjut belanja/ bayar)
   jika bayar > kranjang > pembayaran (tanya setuju untuk membayar) > info cara pembayaran & batas waktu nya
-Order   :
+Order   :   /buat ui nya DISINI
   Konfirmasi pembayaran > list bukti upload, (upload baru)
   daftar pembelian > detail transaksi
 Help    :
-  list topik Informasi > detail keterangan
+  list topik Informasi > detail keterangan    /ok
 Account : 
   login ?
-    y > list view data (edit, log out) > edit form    /DISINI
-    n > form (login, register)
+    y > list view data (edit akun, edit password, log out) > edit form    /ok    
+    n > form (login, register)  /ok
   
   
