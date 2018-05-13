@@ -3,18 +3,16 @@ This repo without node_modules folder (we can add manually with => npm i).<br>
 This is still on going project
 
 ## Features
-Login
-    - register new user
-    - forget password
-Account 
+Login <br>
+    - register new user, forget password
+Account <br>
     - detail account & edit
-Help
+Help <br>
     - Information about the rule of this e-commerce app
-Order
-    - transaction history
-    - payment confirmation
-Home
-    - store front & list of stuff
+Order <br>
+    - transaction history, payment confirmation
+Home <br>
+    - store front, list of stuff
 
 ## Used Technology
 reactJs
