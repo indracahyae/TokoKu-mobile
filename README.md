@@ -28,9 +28,9 @@ Home <br>
 * [validatorjs](https://github.com/skaterdav85/validatorjs)
 
 ## Screenshot application
-<img src="https://github.com/indracahyae/TokoKu/blob/master/screenshots/1.png" width="200">
+<img src="https://github.com/indracahyae/TokoKu/blob/master/screenshots/1.png" width="400">
 <br>
-![](https://github.com/indracahyae/TokoKu/blob/master/screenshots/2.png?raw=true)
+<img src="https://github.com/indracahyae/TokoKu/blob/master/screenshots/2.png" width="400">
 <br>
 ![](https://github.com/indracahyae/TokoKu/blob/master/screenshots/3.png?raw=true)
 <br>
