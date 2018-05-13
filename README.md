@@ -4,13 +4,13 @@ This is still on going project
 
 ## Features
 Login <br>
-    - register new user, forget password
+    - register new user, forget password <br>
 Account <br>
-    - detail account & edit
+    - detail account & edit <br>
 Help <br>
-    - Information about the rule of this e-commerce app
+    - Information about the rule of this e-commerce app <br>
 Order <br>
-    - transaction history, payment confirmation
+    - transaction history, payment confirmation <br>
 Home <br>
     - store front, list of stuff
 
