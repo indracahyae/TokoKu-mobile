@@ -59,9 +59,9 @@ class MyAccount extends Component {
               }
           />
         </View>
-        <ScrollView style={{marginBottom:45,marginTop:10}}>
+        <ScrollView style={{marginBottom:90,paddingTop:10,}}>
           <WingBlank size='md'>
-            <View>
+            <View style={{paddingBottom:30}}>
               <Card>
                 <Card.Header
                   title=""
@@ -118,7 +118,7 @@ class MyAccount extends Component {
                   multipleLine
                   onClick={() => {}}
                 >
-                  Telepon <Brief>........</Brief>
+                  Telepon <Brief>081335630404</Brief>
                 </Item>
               </List>
             </View>
