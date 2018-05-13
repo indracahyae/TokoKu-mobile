@@ -32,5 +32,11 @@ Home <br>
 <br>
 <img src="https://github.com/indracahyae/TokoKu/blob/master/screenshots/2.png" width="400">
 <br>
-![](https://github.com/indracahyae/TokoKu/blob/master/screenshots/3.png?raw=true)
+<img src="https://github.com/indracahyae/TokoKu/blob/master/screenshots/3.png" width="400">
+<br>
+<img src="https://github.com/indracahyae/TokoKu/blob/master/screenshots/4.png" width="400">
+<br>
+<img src="https://github.com/indracahyae/TokoKu/blob/master/screenshots/5.png" width="400">
+<br>
+<img src="https://github.com/indracahyae/TokoKu/blob/master/screenshots/6.png" width="400">
 <br>
