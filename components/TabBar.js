@@ -35,13 +35,6 @@ class Main extends Component {
         this.props.history.push('/');
     }
 
-    renderContent=(pageText)=>{
-        console.log(pageText);
-        return (
-            <View><Text>{pageText}</Text></View>
-        );
-    }
-
     render() {
         return (
                 <View style={{ height: '100%', width: '100%', top: 0 }}>

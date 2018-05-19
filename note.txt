@@ -3,7 +3,8 @@ react-native-navbar     /navbar
 react-router-native     /navigasi
 react-redux             /manajemen state atau data
 validatorjs             /validasi form data
-axios                   /http request                  
+axios                   /http request
+ongkir API > https://rajaongkir.com/dokumentasi/starter
 
 adb devices
 adb reverse tcp:8081 tcp:8081
@@ -41,3 +42,4 @@ Account :
 WEB INTEGRATION
 laravel
 mySql
+data API to reactNative app

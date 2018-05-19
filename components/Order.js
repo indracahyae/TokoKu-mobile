@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import {
   StyleSheet,View,Text,StatusBar,TouchableOpacity,ScrollView
 } from 'react-native';
-import { Button, WhiteSpace, WingBlank, Modal, Icon } from 'antd-mobile';
+import { Button, WhiteSpace, WingBlank, Modal, Icon,List } from 'antd-mobile';
 import NavigationBar from 'react-native-navbar';
-const alert = Modal.alert;
 
+const alert = Modal.alert;
+const Item = List.Item;
+const Brief = Item.Brief;
 const navBarConfig = {
     leftButton : {
 
@@ -43,20 +45,67 @@ export default class Order extends Component {
             title={navBarConfig.title}
             rightButton={
               <View style={{marginTop:13,marginRight:10}}>
-                <TouchableOpacity onPress={() => alert('hello!')}>
-                  <Icon type="ellipsis" size="sm" color="white" />
+                <TouchableOpacity onPress={() => this.props.history.push('/konfirmPembayaran')}>
+                  <Icon type={'\uE698'} size="sm" color="white" />
                 </TouchableOpacity>
               </View>
             }
           />
         </View>
-        <ScrollView style={{marginBottom:45,marginTop:10}}>
+        <ScrollView style={{marginBottom:90,paddingTop:10}}>
           <WingBlank size='md'>
-            <Text onPress={()=>{
-                this.props.history.push("/detailOrder")
-              }}
-              > Order</Text>
-            
+            <List className="my-list" style={{paddingBottom:25}}>
+              <Item align='top' multipleLine
+                onClick={() => this.props.history.push('/detailOrder')}>
+                no. transaksi
+                <Brief>
+                  <Text>tgl</Text>{'\n'}
+                  <Text>status</Text>{'\n'}
+                  <Text>no resi pengiriman</Text>{'\n'}
+                  <Text>total</Text>
+                </Brief>
+              </Item>
+              <Item align='bottom' multipleLine
+                onClick={() => this.props.history.push('/detailOrder')}>
+                order 1
+                <Brief>
+                  <Text>tgl</Text>{'\n'}
+                  <Text>status</Text>{'\n'}
+                  <Text>no resi pengiriman</Text>{'\n'}
+                  <Text>total</Text>
+                </Brief>
+              </Item>
+              <Item align='bottom' multipleLine
+                onClick={() => this.props.history.push('/detailOrder')}>
+                order 1
+                <Brief>
+                  <Text>tgl</Text>{'\n'}
+                  <Text>status</Text>{'\n'}
+                  <Text>no resi pengiriman</Text>{'\n'}
+                  <Text>total</Text>
+                </Brief>
+              </Item>
+              <Item align='bottom' multipleLine
+                onClick={() => this.props.history.push('/detailOrder')}>
+                order 1
+                <Brief>
+                  <Text>tgl</Text>{'\n'}
+                  <Text>status</Text>{'\n'}
+                  <Text>no resi pengiriman</Text>{'\n'}
+                  <Text>total</Text>
+                </Brief>
+              </Item>
+              <Item align='bottom' multipleLine
+                onClick={() => this.props.history.push('/detailOrder')}>
+                order 1
+                <Brief>
+                  <Text>tgl</Text>{'\n'}
+                  <Text>status</Text>{'\n'}
+                  <Text>no resi pengiriman</Text>{'\n'}
+                  <Text>total</Text>
+                </Brief>
+              </Item>
+            </List>
           </WingBlank>
         </ScrollView>
       </View>

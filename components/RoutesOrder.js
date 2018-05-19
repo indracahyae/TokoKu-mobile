@@ -5,6 +5,7 @@ import {
 import {Switch,Route} from 'react-router-native';
 import Order from './Order';
 import DetailOrder from './DetailOrder';
+import KonfirmasiPembayaran from './KonfirmasiPembayaran';
 
 export default class RoutesOrder extends Component {
     constructor(props){
@@ -17,6 +18,7 @@ export default class RoutesOrder extends Component {
             <Switch>
                 <Route exact path="/order" component={Order} />
                 <Route path="/detailOrder" component={DetailOrder} />
+                <Route path="/konfirmPembayaran" component={KonfirmasiPembayaran} />
             </Switch>
         </View>
        )

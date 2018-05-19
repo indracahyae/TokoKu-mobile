@@ -40,3 +40,5 @@ Home <br>
 <br>
 <img src="https://github.com/indracahyae/TokoKu/blob/master/screenshots/6.png" width="400">
 <br>
+<img src="https://github.com/indracahyae/TokoKu/blob/master/screenshots/7.png" width="400">
+<br>
