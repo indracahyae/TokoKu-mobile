@@ -38,3 +38,6 @@ Account :
     n > form (login, register)  /ok
   
   
+WEB INTEGRATION
+laravel
+mySql

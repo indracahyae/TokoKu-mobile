@@ -17,7 +17,3 @@ export default class Left extends Component {
     );
   }
 }
-
-{/* <Image
-  source={{ uri: charmander }}
-  style={[{ width: 20, height: 20, }, this.props.style]}/> */}

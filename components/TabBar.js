@@ -137,8 +137,8 @@ function mapStateToProps(state){
       allState: state
     };
   }
-  const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
     dispatch
-  })
-  Main = connect(mapStateToProps,mapDispatchToProps)(Main);
-  export default Main;
+})
+Main = connect(mapStateToProps,mapDispatchToProps)(Main);
+export default Main;
