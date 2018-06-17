@@ -13,24 +13,18 @@ class Account extends Component {
     this.state = {
         login: false,
     };
-    console.log(this.props);
+    // console.log(this.props);
   }
 
   componentDidMount(){
     //   cek was login DISINI
+
   }
 
   render() {
-    if(this.props.allState.login == false){
-        return (
-            <LoginUser history={this.props.history}/>
-        );
-    };
-    if(this.props.allState.login == true){
-        return (
-            <MyAccount history={this.props.history}/>
-        );
-    };
+    return (
+        <LoginUser history={this.props.history}/>
+    );    
   }
 }
 
@@ -44,3 +38,15 @@ const mapDispatchToProps = (dispatch) => ({
 })
 Account = connect(mapStateToProps,mapDispatchToProps)(Account);
 export default Account;
+
+// if(this.props.allState.login == false){
+//   return (
+//       <LoginUser history={this.props.history}/>
+//   );
+// };
+
+// if(this.props.allState.login == true){
+//   return (
+//       <MyAccount history={this.props.history}/>
+//   );
+// };

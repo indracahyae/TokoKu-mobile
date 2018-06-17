@@ -5,10 +5,9 @@ import {
 import { Button, WhiteSpace, WingBlank, Modal, Icon,List,InputItem,Toast,Tag } from 'antd-mobile';
 import NavigationBar from 'react-native-navbar';
 import {connect} from 'react-redux';
-import { login } from '../actions';
-const alert = Modal.alert;
-const prompt = Modal.prompt;
+import { lupaSandi } from './RestApi';
 
+const prompt = Modal.prompt;
 const navBarConfig = {
     leftButton : {
 
@@ -31,7 +30,6 @@ class LoginUser extends Component {
         password: '',
     };
     this.inputs = {};
-    // console.log(this.props);
   }
 
   focusNextField=(key)=>{
@@ -39,7 +37,7 @@ class LoginUser extends Component {
   }
 
   lupaKataSandi = () =>{
-    prompt('Lupa kata sandi', 'sandi akan dikirimkan ke email anda',
+    prompt('Lupa sandi', 'sandi akan dikirimkan ke email anda',
       [
         {
           text: 'cancel',
@@ -47,7 +45,10 @@ class LoginUser extends Component {
         },
         {
           text: 'send',
-          onPress: value => Toast.info(value, 1),
+          onPress: async(value) =>{
+            let res = await lupaSandi(value);
+            console.log(res);
+          },
         },
       ], 'default', null, ['input your email']);
   }
@@ -93,8 +94,9 @@ class LoginUser extends Component {
                         <TouchableOpacity 
                             style={{width:'100%',height:40,justifyContent:'center',alignItems:'center', backgroundColor: '#BBDEFB',borderRadius:5}} 
                             onPress={()=>{
-                              Toast.info(this.state.username+', '+this.state.password, 1);
-                              this.props.dispatch(login(''));
+                              // Toast.info(this.state.username+', '+this.state.password, 1);
+                              this.props.history.push("/myprofile")
+                              // this.props.dispatch(login(''));
                               }}>
                             <Text>Log in</Text>
                         </TouchableOpacity>
@@ -103,7 +105,7 @@ class LoginUser extends Component {
                 <WhiteSpace/> 
                 <WhiteSpace/>
                 <View style={{flexDirection: 'row'}}>
-                    <Tag onChange={()=>this.lupaKataSandi()} style={{marginRight:10}}>Lupa kata sandi ? </Tag>
+                    <Tag onChange={()=>this.lupaKataSandi()} style={{marginRight:10}}>Lupa sandi ? </Tag>
                     <Tag onChange={()=>this.props.history.push('/register')} >Daftar ? </Tag>
                 </View>
             </WingBlank>

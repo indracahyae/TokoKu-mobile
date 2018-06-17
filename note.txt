@@ -25,12 +25,12 @@ https://www.youtube.com/watch?v=u8UoldEIlnQ
 
 
 SITE MAP (MY)
-Home    :
+Home    : //DISINI (lengkapi ui home)
   list barang > detail barang > form pembelian > (masuk keranjang), confirm(lanjut belanja/ bayar)
   jika bayar > kranjang > pembayaran (tanya setuju untuk membayar) > info cara pembayaran & batas waktu nya
-Order   :   /buat ui nya DISINI
-  Konfirmasi pembayaran > list bukti upload, (upload baru)
-  daftar pembelian > detail transaksi
+Order   :  
+  Konfirmasi pembayaran > list bukti upload, (new,ed,del) //OK
+  daftar pembelian > detail transaksi   /OK
 Help    :
   list topik Informasi > detail keterangan    /ok
 Account : 
@@ -40,6 +40,16 @@ Account :
   
   
 WEB INTEGRATION
-laravel
+expressJs
 mySql
-data API to reactNative app
+restAPI to reactNative
+
+---------------------------------------------------------------------------------------------------
+restAPI
+LOGIN > LOGOUT
+LUPA SANDI        /OK
+DAFTAR/ REGISTER  /DISINI
+AKUN:     // 
+  select  /OK
+  edit > update   /DISINI
+  edit password   /OK

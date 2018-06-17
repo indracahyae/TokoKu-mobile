@@ -6,10 +6,11 @@ import { Button, WhiteSpace, WingBlank,Modal,Icon,List,Card} from 'antd-mobile';
 import NavigationBar from 'react-native-navbar';
 import {connect} from 'react-redux';
 import {logout} from '../actions';
+import {getMyProfile,updatePassword} from './RestApi';
 
+const prompt = Modal.prompt;
 const Item = List.Item;
 const Brief = Item.Brief;
-const alert = Modal.alert;
 const Operation = Modal.operation;
 
 const navBarConfig = {
@@ -29,9 +30,41 @@ class MyAccount extends Component {
 
   constructor(props){
     super(props);
+    this.state={
+      myProfile: []
+    };
+  }
+
+  async componentDidMount(){
+    console.log('comp mount');
+    let myProfile = await getMyProfile(3);
+    console.log(myProfile);
+    this.setState({myProfile});
+  }
+
+  lupaKataSandi = () =>{
+    prompt('Lupa kata sandi',' ',
+      [
+        {
+          text: 'cancel',
+          onPress: value => {},
+        },
+        {
+          text: 'save',
+          onPress: async value => {
+            let data = {
+              password: value
+            }
+            let res= await updatePassword(3,data);
+            console.log(res);
+          },
+        },
+      ], 'default', null, ['sandi baru']);
   }
 
   render() {
+    let {myProfile} = this.state;
+
     return (
       <View>
         <StatusBar backgroundColor="#0984e3" barStyle="light-content" />
@@ -49,7 +82,7 @@ class MyAccount extends Component {
                   <TouchableOpacity onPress={
                     () => Operation([
                       { text: 'Edit account', onPress: () => this.props.history.push("/editAkun") },
-                      { text: 'Edit password', onPress: () => console.log('opsi2') },
+                      { text: 'Edit password', onPress: () => this.lupaKataSandi() },
                       { text: 'Log out', onPress: () => this.props.dispatch(logout('')) },
                     ])
                   }>
@@ -65,7 +98,7 @@ class MyAccount extends Component {
               <Card>
                 <Card.Header
                   title=""
-                  thumb={<Image source={{uri: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png'}}
+                  thumb={<Image source={{uri: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'}}
                             style={{width: 50, height: 50,borderRadius:10,marginRight:10}} />}
                   extra={<Text>Poin Anda 100</Text>}
                 />
@@ -76,49 +109,35 @@ class MyAccount extends Component {
                   multipleLine
                   onClick={() => {}}
                 >
-                  Nama <Brief>Indra Cahya E</Brief>
+                  Nama <Brief>{myProfile.nama}</Brief>
                 </Item>
                 <Item
                   arrow={null}
                   multipleLine
                   onClick={() => {}}
                 >
-                  Username <Brief>........</Brief>
+                  Username <Brief>{myProfile.username}</Brief>
                 </Item>
                 <Item
                   arrow={null}
                   multipleLine
                   onClick={() => {}}
                 >
-                  Kelamin <Brief>........</Brief>
+                  Email <Brief>{myProfile.email}</Brief>
                 </Item>
                 <Item
                   arrow={null}
                   multipleLine
                   onClick={() => {}}
                 >
-                  Tanggal Lahir <Brief>........</Brief>
+                  Alamat <Brief>{myProfile.alamat}</Brief>
                 </Item>
                 <Item
                   arrow={null}
                   multipleLine
                   onClick={() => {}}
                 >
-                  Alamat <Brief>........</Brief>
-                </Item>
-                <Item
-                  arrow={null}
-                  multipleLine
-                  onClick={() => {}}
-                >
-                  Email <Brief>........</Brief>
-                </Item>
-                <Item
-                  arrow={null}
-                  multipleLine
-                  onClick={() => {}}
-                >
-                  Telepon <Brief>081335630404</Brief>
+                  Telepon <Brief>{myProfile.tlp}</Brief>
                 </Item>
               </List>
             </View>

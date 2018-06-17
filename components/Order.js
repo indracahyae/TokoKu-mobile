@@ -28,6 +28,22 @@ export default class Order extends Component {
   }
 
   render() {
+    var listOrder = [];
+    for(var i = 0; i <= 5; i++){
+      listOrder.push(
+        <Item multipleLine key={i}
+          onClick={() => this.props.history.push('/detailOrder')}>
+          no. transaksi
+          <Brief>
+            <Text>tgl</Text>{'\n'}
+            <Text>status transaksi</Text>{'\n'}
+            <Text>status pengiriman</Text>{'\n'}
+            <Text style={{fontWeight:'bold'}}>total</Text>
+          </Brief>
+        </Item>
+      )
+    }
+
     return (
       <View>
         <StatusBar
@@ -55,56 +71,7 @@ export default class Order extends Component {
         <ScrollView style={{marginBottom:90,paddingTop:10}}>
           <WingBlank size='md'>
             <List className="my-list" style={{paddingBottom:25}}>
-              <Item align='top' multipleLine
-                onClick={() => this.props.history.push('/detailOrder')}>
-                no. transaksi
-                <Brief>
-                  <Text>tgl</Text>{'\n'}
-                  <Text>status</Text>{'\n'}
-                  <Text>no resi pengiriman</Text>{'\n'}
-                  <Text>total</Text>
-                </Brief>
-              </Item>
-              <Item align='bottom' multipleLine
-                onClick={() => this.props.history.push('/detailOrder')}>
-                order 1
-                <Brief>
-                  <Text>tgl</Text>{'\n'}
-                  <Text>status</Text>{'\n'}
-                  <Text>no resi pengiriman</Text>{'\n'}
-                  <Text>total</Text>
-                </Brief>
-              </Item>
-              <Item align='bottom' multipleLine
-                onClick={() => this.props.history.push('/detailOrder')}>
-                order 1
-                <Brief>
-                  <Text>tgl</Text>{'\n'}
-                  <Text>status</Text>{'\n'}
-                  <Text>no resi pengiriman</Text>{'\n'}
-                  <Text>total</Text>
-                </Brief>
-              </Item>
-              <Item align='bottom' multipleLine
-                onClick={() => this.props.history.push('/detailOrder')}>
-                order 1
-                <Brief>
-                  <Text>tgl</Text>{'\n'}
-                  <Text>status</Text>{'\n'}
-                  <Text>no resi pengiriman</Text>{'\n'}
-                  <Text>total</Text>
-                </Brief>
-              </Item>
-              <Item align='bottom' multipleLine
-                onClick={() => this.props.history.push('/detailOrder')}>
-                order 1
-                <Brief>
-                  <Text>tgl</Text>{'\n'}
-                  <Text>status</Text>{'\n'}
-                  <Text>no resi pengiriman</Text>{'\n'}
-                  <Text>total</Text>
-                </Brief>
-              </Item>
+              {listOrder}
             </List>
           </WingBlank>
         </ScrollView>

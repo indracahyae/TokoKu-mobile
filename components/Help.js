@@ -52,9 +52,9 @@ export default class Home extends Component {
             <View>
               <List className="my-list">
                 <Item arrow="horizontal" onClick={() => this.props.history.push('/helpPembelian')}>Pembelian</Item>
-                <Item arrow="horizontal" onClick={() => {}}>Akun</Item>
-                <Item arrow="horizontal" onClick={() => {}}>Pengiriman</Item>
-                <Item arrow="horizontal" onClick={() => {}}>Promo</Item>
+                <Item arrow="horizontal" onClick={() => this.props.history.push('/helpAkun')}>Akun</Item>
+                <Item arrow="horizontal" onClick={() => this.props.history.push('/helpPengiriman')}>Pengiriman</Item>
+                <Item arrow="horizontal" onClick={() => this.props.history.push('/helpPromo')}>Promo</Item>
               </List>
             </View>
           </WingBlank>
