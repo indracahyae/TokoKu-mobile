@@ -1,29 +1,40 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,View,Text,StatusBar,TouchableOpacity,ScrollView
+  StyleSheet,View,Text,StatusBar,TouchableOpacity,ScrollView,AsyncStorage
 } from 'react-native';
 import {connect} from 'react-redux';
 import LoginUser from './LoginUser';
 import MyAccount from './MyAccount';
+import {login} from '../actions';
 
 class Account extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-        login: false,
+        login: null,
     };
-    // console.log(this.props);
   }
 
-  componentDidMount(){
+  async componentDidMount(){
     //   cek was login DISINI
-
+    let res = await AsyncStorage.getItem('@Login:key');
+    if(res !== null){
+      this.props.dispatch(login(''));
+    }
   }
 
   render() {
+    let {login} = this.props.allState;
+
     return (
-        <LoginUser history={this.props.history}/>
+      <View>
+        {login == false ? (
+          <LoginUser history={this.props.history}/>
+        ) : (
+          <MyAccount history={this.props.history}/>
+        )}
+      </View>
     );    
   }
 }
@@ -38,15 +49,3 @@ const mapDispatchToProps = (dispatch) => ({
 })
 Account = connect(mapStateToProps,mapDispatchToProps)(Account);
 export default Account;
-
-// if(this.props.allState.login == false){
-//   return (
-//       <LoginUser history={this.props.history}/>
-//   );
-// };
-
-// if(this.props.allState.login == true){
-//   return (
-//       <MyAccount history={this.props.history}/>
-//   );
-// };

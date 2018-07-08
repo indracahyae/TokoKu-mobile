@@ -135,19 +135,8 @@ export default class RegisterUser extends Component {
                             >
                                 <Icon type={"\uE6A8"} size="xs" color="black" />
                             </InputItem>  
-                            <Picker data={dataKelamin} cols={1} okText='ok' dismissText='back' extra={' '}>
-                                <List.Item arrow="down">Kelamin</List.Item>
-                            </Picker>
-                            <DatePicker
-                                mode="date"
-                                extra={" "}
-                                okText='ok' dismissText='back'
-                                locale={enUs}
-                                value={this.state.date}
-                                onChange={date => this.setState({ date })}
-                                >
-                                <List.Item arrow="horizontal">Tanggal Lahir</List.Item>
-                            </DatePicker>
+                            
+                            
                             <InputItem placeholder="alamat" name="alamat" type="text"
                                 value={this.state.alamat}
                                 onChange={(alamat) => this.setState({alamat})}
@@ -183,3 +172,17 @@ export default class RegisterUser extends Component {
         )
     }
 }
+
+{/* <Picker data={dataKelamin} cols={1} okText='ok' dismissText='back' extra={' '}>
+    <List.Item arrow="down">Kelamin</List.Item>
+</Picker>
+<DatePicker
+    mode="date"
+    extra={" "}
+    okText='ok' dismissText='back'
+    locale={enUs}
+    value={this.state.date}
+    onChange={date => this.setState({ date })}
+    >
+    <List.Item arrow="horizontal">Tanggal Lahir</List.Item>
+</DatePicker> */}

@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import {
-    StyleSheet,View,Text,StatusBar,TouchableOpacity,ScrollView
+    StyleSheet,View,Text,StatusBar,TouchableOpacity,ScrollView, AsyncStorage
 } from 'react-native';
 import { Button,WhiteSpace,WingBlank,Modal,Icon,List,InputItem,Picker,DatePicker } from 'antd-mobile';
 import {history} from '../App';
 import NavigationBar from 'react-native-navbar';
 import LeftButton from './leftButton';
 import enUs from 'antd-mobile/lib/date-picker/locale/en_US';
+import {getProvinsi, getKota, registerCustomer} from './RestApi'
+import {login} from '../actions';
+import {connect} from 'react-redux';
 
 const navBarConfig = {
     leftButton : {
@@ -23,20 +26,6 @@ const navBarConfig = {
     }
 };
 
-const dataPicker = [
-    {
-      label: 'Jawa Timur',
-      value: 'jatim',
-    },
-    {
-      label: 'Jawa Barat',
-      value: 'jabar',
-    },
-    {
-        label: 'Jawa Tengah',
-        value: 'jateng',
-    },
-  ];
 const dataKelamin = [
     {
         label: 'Laki-laki',
@@ -52,7 +41,7 @@ const nowTimeStamp = Date.now();
 const now = new Date(nowTimeStamp);
 
 
-export default class RegisterUser extends Component {
+class RegisterUser extends Component {
 
     constructor(props){
         super(props);
@@ -63,23 +52,99 @@ export default class RegisterUser extends Component {
             alamat: '',
             email: '',
             telepon: '',
-            provinsi:'',
-            kota:'',
+            provinsi: [],
+            kota: [],
             date: now,
-            kelamin:1
+            kelamin:1,
+            dataProvinsi: [],
+            dataKota: []
         };
         this.inputs = {};
+    }
+
+    async componentDidMount(){
+        let dataProvinsi = await getProvinsi();
+        this.createProvinsi(dataProvinsi);
+    }
+
+    createProvinsi=(datas)=>{
+        let {dataProvinsi} = this.state;
+        dataProvinsi = [];
+        datas.map((data,i)=>{
+            let myObj = {
+                label : data.nama,  
+                value : data.id 
+            };
+            dataProvinsi.push( myObj );
+        });
+
+        this.setState({
+            dataProvinsi
+        })
+    }
+
+    createKota= async(id) =>{
+        let datas = await getKota(id);
+        let {dataKota} = this.state;
+        dataKota = [];
+        datas.map((data,i)=>{
+            let myObj = {
+                label : data.nama,  
+                value : data.id 
+            };
+            dataKota.push( myObj );
+        });
+
+        this.setState({
+            dataKota
+        })
     }
 
     focusNextField=(key)=>{
         this.inputs[key].inputRef.inputRef.focus()
     }
 
-    submitForm=()=>{
+    submitForm= async()=>{
+        let {username,email,password,nama,alamat,kota,telepon} = this.state;
+        let data = {
+            username: username,
+            email: email,
+            password: password,
+            nama: nama,
+            alamat: alamat,
+            id_kota: kota,
+            tlp: telepon,
+        };
+        let res = await registerCustomer(data);
+        console.log(res);
+        if(res.status == true){
+            await AsyncStorage.setItem('@Login:key','true');
+            await AsyncStorage.setItem('@UserId:key', res.data.id.toString() );
 
+            this.props.dispatch(login(''));
+            history.goBack();
+        }else{
+            Toast.info('terjadi kesalahan, coba lagi', 2)
+        }
+    }
+
+    pickProvinsi=(prov)=>{
+        let {dataProvinsi} = this.state;
+        let res = dataProvinsi.filter(data => data.value == prov)
+        console.log(res);
+        return res.length==0?' ':res[0].label;
+    }
+
+    pickKota=(kota)=>{
+        let {dataKota} = this.state;
+        let res = dataKota.filter(data => data.value == kota)
+        console.log(res);
+        return res.length==0?' ':res[0].label;
     }
 
     render(){
+        let {dataKota,dataProvinsi,provinsi,kota} = this.state;
+
         return(
             <View>
                 <StatusBar
@@ -98,7 +163,7 @@ export default class RegisterUser extends Component {
                     leftButton={<LeftButton onPress={()=>history.goBack()}/>}
                     rightButton={
                     <View style={{marginTop:11,marginRight:10}}>
-                        <TouchableOpacity onPress={()=>{}}>
+                        <TouchableOpacity onPress={()=>this.submitForm()}>
                             <Icon type="check" size="sm" color="white" />
                         </TouchableOpacity>
                     </View>
@@ -135,19 +200,8 @@ export default class RegisterUser extends Component {
                             >
                                 <Icon type={"\uE6A8"} size="xs" color="black" />
                             </InputItem>  
-                            <Picker data={dataKelamin} cols={1} okText='ok' dismissText='back' extra={' '}>
-                                <List.Item arrow="down">Kelamin</List.Item>
-                            </Picker>
-                            <DatePicker
-                                mode="date"
-                                extra={" "}
-                                okText='ok' dismissText='back'
-                                locale={enUs}
-                                value={this.state.date}
-                                onChange={date => this.setState({ date })}
-                                >
-                                <List.Item arrow="horizontal">Tanggal Lahir</List.Item>
-                            </DatePicker>
+                            
+                            
                             <InputItem placeholder="alamat" name="alamat" type="text"
                                 value={this.state.alamat}
                                 onChange={(alamat) => this.setState({alamat})}
@@ -155,10 +209,19 @@ export default class RegisterUser extends Component {
                             >
                                 <Icon type={"\uE686"} size="xs" color="black" />
                             </InputItem> 
-                            <Picker data={dataPicker} cols={1} okText='ok' dismissText='back' extra={' '}>
+                            <Picker data={dataProvinsi} cols={1} okText='ok' dismissText='back' extra={this.pickProvinsi(provinsi)} 
+                                value={provinsi}
+                                onOk={(v)=>{
+                                    this.setState({provinsi:v});
+                                    this.createKota(v);
+                                }}
+                            >
                                 <List.Item arrow="down">Provinsi</List.Item>
                             </Picker>
-                            <Picker data={dataPicker} cols={1} okText='ok' dismissText='back' extra={' '}>
+                            <Picker data={dataKota} cols={1} okText='ok' dismissText='back' extra={this.pickKota(kota)}
+                                value={kota}
+                                onOk={v=>this.setState({kota:v})}
+                            >
                                 <List.Item arrow="down">Kota</List.Item>
                             </Picker>
                             <InputItem placeholder="email" name="email" type="text" 
@@ -183,3 +246,28 @@ export default class RegisterUser extends Component {
         )
     }
 }
+
+function mapStateToProps(state){
+    return{
+      allState: state
+    };
+  }
+  const mapDispatchToProps = (dispatch) => ({
+    dispatch
+  })
+  RegisterUser = connect(mapStateToProps,mapDispatchToProps)(RegisterUser);
+  export default RegisterUser;
+
+{/* <Picker data={dataKelamin} cols={1} okText='ok' dismissText='back' extra={' '}>
+    <List.Item arrow="down">Kelamin</List.Item>
+</Picker> */}
+{/* <DatePicker
+    mode="date"
+    extra={" "}
+    okText='ok' dismissText='back'
+    locale={enUs}
+    value={this.state.date}
+    onChange={date => this.setState({ date })}
+    >
+    <List.Item arrow="horizontal">Tanggal Lahir</List.Item>
+</DatePicker> */}

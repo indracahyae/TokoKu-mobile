@@ -46,10 +46,22 @@ restAPI to reactNative
 
 ---------------------------------------------------------------------------------------------------
 restAPI
-LOGIN > LOGOUT
+LOGIN > LOGOUT    /OK
+DAFTAR/ REGISTER  /OK
 LUPA SANDI        /OK
-DAFTAR/ REGISTER  /DISINI
 AKUN:     // 
   select  /OK
   edit > update   /DISINI
   edit password   /OK
+HELP  //OK STATIC
+
+TRANSAKSI
+  -list order
+  detail order
+  -list pay order CRUD
+   
+HOME
+  -list barang
+  filter barang
+  detail barang
+  beli

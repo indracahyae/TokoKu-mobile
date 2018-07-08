@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,View,Text,StatusBar,TouchableOpacity,ScrollView
+  StyleSheet,View,Text,StatusBar,TouchableOpacity,ScrollView, AsyncStorage
 } from 'react-native';
 import { Button, WhiteSpace, WingBlank, Modal, Icon,List,InputItem,Toast,Tag } from 'antd-mobile';
 import NavigationBar from 'react-native-navbar';
 import {connect} from 'react-redux';
-import { lupaSandi } from './RestApi';
+import {login} from '../actions';
+import { lupaSandi, loginUser } from './RestApi';
 
 const prompt = Modal.prompt;
 const navBarConfig = {
@@ -53,6 +54,26 @@ class LoginUser extends Component {
       ], 'default', null, ['input your email']);
   }
 
+  login= async()=>{
+    let {username, password} = this.state;
+    // CEK LOGIN
+    let data = {
+      username: username,
+      password: password
+    }
+    let res = await loginUser(data);
+
+    if(res.length == 1){
+      console.log(res[0].id);
+
+      await AsyncStorage.setItem('@Login:key','true');
+      await AsyncStorage.setItem('@UserId:key', res[0].id.toString());
+      this.props.dispatch(login(''));
+    }else{
+      Toast.info('Data tidak ditemukan', 2)
+    }
+  }
+
   render() {
     return (
       <View>
@@ -93,11 +114,7 @@ class LoginUser extends Component {
                     <List.Item>
                         <TouchableOpacity 
                             style={{width:'100%',height:40,justifyContent:'center',alignItems:'center', backgroundColor: '#BBDEFB',borderRadius:5}} 
-                            onPress={()=>{
-                              // Toast.info(this.state.username+', '+this.state.password, 1);
-                              this.props.history.push("/myprofile")
-                              // this.props.dispatch(login(''));
-                              }}>
+                            onPress={()=> this.login() }>
                             <Text>Log in</Text>
                         </TouchableOpacity>
                     </List.Item>   

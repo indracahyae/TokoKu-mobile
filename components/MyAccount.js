@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,View,Text,StatusBar,TouchableOpacity,ScrollView,Image
+  StyleSheet,View,Text,StatusBar,TouchableOpacity,ScrollView,Image, AsyncStorage
 } from 'react-native';
 import { Button, WhiteSpace, WingBlank,Modal,Icon,List,Card} from 'antd-mobile';
 import NavigationBar from 'react-native-navbar';
@@ -36,13 +36,17 @@ class MyAccount extends Component {
   }
 
   async componentDidMount(){
-    console.log('comp mount');
-    let myProfile = await getMyProfile(3);
+    await AsyncStorage.setItem('@Login:key', 'true');
+    let userId = await AsyncStorage.getItem('@UserId:key');
+
+    let myProfile = await getMyProfile(userId);
     console.log(myProfile);
     this.setState({myProfile});
   }
 
   lupaKataSandi = () =>{
+    let {myProfile} = this.state;
+
     prompt('Lupa kata sandi',' ',
       [
         {
@@ -55,7 +59,7 @@ class MyAccount extends Component {
             let data = {
               password: value
             }
-            let res= await updatePassword(3,data);
+            let res= await updatePassword(myProfile.id,data);
             console.log(res);
           },
         },
@@ -83,7 +87,11 @@ class MyAccount extends Component {
                     () => Operation([
                       { text: 'Edit account', onPress: () => this.props.history.push("/editAkun") },
                       { text: 'Edit password', onPress: () => this.lupaKataSandi() },
-                      { text: 'Log out', onPress: () => this.props.dispatch(logout('')) },
+                      { text: 'Log out', onPress: async() => {
+                          await AsyncStorage.removeItem('@Login:key');
+                          this.props.dispatch(logout(''));
+                        }
+                      },
                     ])
                   }>
                     <Icon type="ellipsis" size="sm" color="white" />
@@ -98,9 +106,9 @@ class MyAccount extends Component {
               <Card>
                 <Card.Header
                   title=""
-                  thumb={<Image source={{uri: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'}}
+                  thumb={<Image source={{uri: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png'}}
                             style={{width: 50, height: 50,borderRadius:10,marginRight:10}} />}
-                  extra={<Text>Poin Anda 100</Text>}
+                  extra={<Text>Poin Anda {myProfile.poin}</Text>}
                 />
               </Card>
               <List className="my-list">
@@ -158,3 +166,5 @@ const mapDispatchToProps = (dispatch) => ({
 })
 MyAccount = connect(mapStateToProps,mapDispatchToProps)(MyAccount);
 export default MyAccount;
+
+// this.props.dispatch(logout(''))

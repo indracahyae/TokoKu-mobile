@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://192.168.1.42:3000/restapi/mobile';
+const baseUrl = 'http://192.168.43.25:3000/restapi/mobile';
 
 export const getMyProfile = (id) =>
     axios.get(`${baseUrl}/myprofile/${id}`)
@@ -21,6 +21,42 @@ export const updatePassword = (id,data) =>
 
 export const lupaSandi = (email) =>
     axios.get(`${baseUrl}/lupaSandi/${email}`)
+    .then((res)=>{
+        return res.data;
+    })
+    .catch((error)=>{
+        console.log(error);
+    });
+
+export const getProvinsi = () =>
+    axios.get(`${baseUrl}/getProvinsi`)
+    .then((res)=>{
+        return res.data;
+    })
+    .catch((error)=>{
+        console.log(error);
+    });
+
+export const getKota = (id) =>
+    axios.get(`${baseUrl}/getKota/${id}`)
+    .then((res)=>{
+        return res.data;
+    })
+    .catch((error)=>{
+        console.log(error);
+    });
+
+export const registerCustomer = (data) =>
+    axios.post(`${baseUrl}/registerCustomer`,data)
+    .then((res)=>{
+        return res.data;
+    })
+    .catch((error)=>{
+        console.log(error);
+    });
+
+export const loginUser = (data) =>
+    axios.post(`${baseUrl}/login`,data)
     .then((res)=>{
         return res.data;
     })
