@@ -89,6 +89,7 @@ class MyAccount extends Component {
                       { text: 'Edit password', onPress: () => this.lupaKataSandi() },
                       { text: 'Log out', onPress: async() => {
                           await AsyncStorage.removeItem('@Login:key');
+                          await AsyncStorage.removeItem('@UserId:key');
                           this.props.dispatch(logout(''));
                         }
                       },

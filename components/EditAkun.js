@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {
-    StyleSheet,View,Text,StatusBar,TouchableOpacity,ScrollView
+    StyleSheet,View,Text,StatusBar,TouchableOpacity,ScrollView, AsyncStorage
 } from 'react-native';
 import { Button,WhiteSpace,WingBlank,Modal,Icon,List,InputItem,Picker,DatePicker } from 'antd-mobile';
 import {history} from '../App';
 import NavigationBar from 'react-native-navbar';
 import LeftButton from './leftButton';
-import enUs from 'antd-mobile/lib/date-picker/locale/en_US';
+import enUs from 'antd-mobile/lib/date-picker/locale/en_US'
+import { getProvinsi, getKota, getMyProfile, updateProfile} from './RestApi'
 
 const navBarConfig = {
     leftButton : {
@@ -62,24 +63,124 @@ export default class RegisterUser extends Component {
             nama: '',
             alamat: '',
             email: '',
-            telepon: '',
+            tlp: '',
             provinsi:'',
             kota:'',
             date: now,
-            kelamin:1
+            kelamin:1,
+
+            uid: '',
+            dataProvinsi: [],
+            dataKota: []
         };
         this.inputs = {};
+    }
+
+    async componentDidMount(){
+        let uid = await AsyncStorage.getItem('@UserId:key');
+        this.setState({uid});
+
+        // GET DATA
+        let res = await getMyProfile(uid);
+        console.log(res);
+
+        // FILL TO FORM
+        this.setState({
+            username: res.username,
+            password: res.password,
+            nama: res.nama,
+            alamat: res.alamat,
+            email: res.email,
+            tlp: res.tlp,
+            kota: res.id_kota,
+            provinsi: res.id_kota.toString().substr(0, 2)
+        });
+
+        let dataProvinsi = await getProvinsi();
+        this.createProvinsi(dataProvinsi);
+
+        let id_prov = res.id_kota.toString();
+        this.createKota(id_prov.substr(0, 2));
+
+    }
+
+    createProvinsi=(datas)=>{
+        let {dataProvinsi} = this.state;
+        dataProvinsi = [];
+        datas.map((data,i)=>{
+            let myObj = {
+                label : data.nama,  
+                value : data.id 
+            };
+            dataProvinsi.push( myObj );
+        });
+
+        this.setState({
+            dataProvinsi
+        })
+    }
+
+    pickProvinsi=(prov)=>{
+        let {dataProvinsi} = this.state;
+        let res = dataProvinsi.filter(data => data.value == prov)
+        // console.log(res);
+        return res.length==0?' ':res[0].label;
+    }
+
+    createKota= async(id) =>{
+        let datas = await getKota(id);
+        let {dataKota} = this.state;
+        dataKota = [];
+        datas.map((data,i)=>{
+            let myObj = {
+                label : data.nama,  
+                value : data.id 
+            };
+            dataKota.push( myObj );
+        });
+
+        this.setState({
+            dataKota
+        })
+    }
+
+    pickKota=(kota)=>{
+        let {dataKota} = this.state;
+        let res = dataKota.filter(data => data.value == kota)
+        // console.log(res);
+        return res.length==0?' ':res[0].label;
     }
 
     focusNextField=(key)=>{
         this.inputs[key].inputRef.inputRef.focus();
     }
 
-    submitForm=()=>{
+    submitForm= async()=>{
+        // FORM DATA
+        let {username,email,password,nama,alamat,kota,tlp, uid} = this.state;
+        let data = {
+            username,
+            email,
+            password,
+            nama,
+            alamat,
+            id_kota: kota,
+            tlp,
+        };
 
+        let res = await updateProfile(uid, data);
+        if(res.status === true){
+            history.goBack();
+        }else{
+            Toast.info('terjadi kesalahan, coba lagi', 2);
+        }
     }
 
     render(){
+        let { dataProvinsi, provinsi, dataKota, kota, 
+            username, password, nama, alamat, email, tlp
+        } = this.state;
+
         return(
             <View>
                 <StatusBar
@@ -98,7 +199,7 @@ export default class RegisterUser extends Component {
                     leftButton={<LeftButton onPress={()=>history.goBack()}/>}
                     rightButton={
                     <View style={{marginTop:11,marginRight:10}}>
-                        <TouchableOpacity onPress={()=>{}}>
+                        <TouchableOpacity onPress={()=> this.submitForm()}>
                             <Icon type="check" size="sm" color="white" />
                         </TouchableOpacity>
                     </View>
@@ -109,7 +210,7 @@ export default class RegisterUser extends Component {
                     <WingBlank size='md'>
                         <List>
                             <InputItem clear placeholder="username" name="username" type="text"
-                                value={this.state.username}
+                                value={username}
                                 onChange={(username) => this.setState({username})}
                                 returnKeyType="next"
                                 autoFocus = {true}
@@ -118,7 +219,7 @@ export default class RegisterUser extends Component {
                                 <Icon type={"\uE66A"} size="xs" color="black" />
                             </InputItem>   
                             <InputItem placeholder="password" name="password" type="password"
-                                value={this.state.password}
+                                value={password}
                                 onChange={(password) => this.setState({password})}
                                 ref={el => this.inputs['password'] = el}
                                 onSubmitEditing={ () => this.focusNextField('nama')}
@@ -127,7 +228,7 @@ export default class RegisterUser extends Component {
                                 <Icon type={"\uE67B"} size="xs" color="black" />
                             </InputItem>
                             <InputItem placeholder="nama" name="nama" type="text"
-                                value={this.state.nama}
+                                value={nama}
                                 onChange={(nama) => this.setState({nama})}
                                 ref={el => this.inputs['nama'] = el}
                                 onSubmitEditing={ () => this.focusNextField('alamat')}
@@ -138,20 +239,32 @@ export default class RegisterUser extends Component {
                             
                             
                             <InputItem placeholder="alamat" name="alamat" type="text"
-                                value={this.state.alamat}
+                                value={alamat}
                                 onChange={(alamat) => this.setState({alamat})}
                                 ref={el => this.inputs['alamat'] = el}
                             >
                                 <Icon type={"\uE686"} size="xs" color="black" />
                             </InputItem> 
-                            <Picker data={dataPicker} cols={1} okText='ok' dismissText='back' extra={' '}>
+                            
+                            <Picker data={dataProvinsi} cols={1} okText='ok' dismissText='back' extra={this.pickProvinsi(provinsi)} 
+                                value={provinsi}
+                                onOk={(v)=>{
+                                    this.setState({provinsi:v});
+                                    this.createKota(v);
+                                }}
+                            >
                                 <List.Item arrow="down">Provinsi</List.Item>
                             </Picker>
-                            <Picker data={dataPicker} cols={1} okText='ok' dismissText='back' extra={' '}>
+
+                            <Picker data={dataKota} cols={1} okText='ok' dismissText='back' extra={this.pickKota(kota)}
+                                value={kota}
+                                onOk={v=>this.setState({kota:v})}
+                            >
                                 <List.Item arrow="down">Kota</List.Item>
                             </Picker>
+
                             <InputItem placeholder="email" name="email" type="text" 
-                                value={this.state.email}
+                                value={email}
                                 onChange={(email) => this.setState({email})}
                                 onSubmitEditing={ () => this.focusNextField('telepon')}
                                 returnKeyType="next"
@@ -159,8 +272,8 @@ export default class RegisterUser extends Component {
                                 <Icon type={"\uE659"} size="xs" color="black" />
                             </InputItem>
                             <InputItem placeholder="telepon" name="telepon" type="number"
-                                value={this.state.telepon}
-                                onChange={(telepon) => this.setState({telepon})}
+                                value={tlp}
+                                onChange={(tlp) => this.setState({tlp})}
                                 ref={el => this.inputs['telepon'] = el}
                             >
                                 <Icon type={"\uE675"} size="xs" color="black" />

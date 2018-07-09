@@ -47,11 +47,11 @@ restAPI to reactNative
 ---------------------------------------------------------------------------------------------------
 restAPI
 LOGIN > LOGOUT    /OK
-DAFTAR/ REGISTER  /OK
+DAFTAR/ REGISTER  /OK (tolak jika email/ username suda ada)
 LUPA SANDI        /OK
 AKUN:     // 
   select  /OK
-  edit > update   /DISINI
+  edit > update   /OK
   edit password   /OK
 HELP  //OK STATIC
 
@@ -61,7 +61,7 @@ TRANSAKSI
   -list pay order CRUD
    
 HOME
-  -list barang
+  -list barang  /DISINI
   filter barang
   detail barang
   beli

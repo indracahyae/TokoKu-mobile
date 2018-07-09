@@ -56,6 +56,7 @@ class LoginUser extends Component {
 
   login= async()=>{
     let {username, password} = this.state;
+   
     // CEK LOGIN
     let data = {
       username: username,
@@ -67,8 +68,8 @@ class LoginUser extends Component {
       console.log(res[0].id);
 
       await AsyncStorage.setItem('@Login:key','true');
-      await AsyncStorage.setItem('@UserId:key', res[0].id.toString());
       this.props.dispatch(login(''));
+      await AsyncStorage.setItem('@UserId:key', res[0].id.toString());
     }else{
       Toast.info('Data tidak ditemukan', 2)
     }
