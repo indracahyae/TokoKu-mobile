@@ -61,7 +61,7 @@ TRANSAKSI
   -list pay order CRUD
    
 HOME
-  -list barang  /DISINI
-  filter barang
-  detail barang
-  beli
+  -list barang    /DISINI
+  -filter barang
+  -detail barang  /DISINI
+  -beli

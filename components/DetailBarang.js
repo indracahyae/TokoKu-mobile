@@ -8,7 +8,6 @@ import {history} from '../App';
 import LeftButton from './leftButton';
 
 const Operation = Modal.operation;
-
 const navBarConfig = {
     leftButton : {
         title: 'back',
@@ -23,6 +22,8 @@ const navBarConfig = {
         tintColor: 'white'
     }
 };
+
+// DATA > kode, nama, harga, stok, img, desc, diskon, suplier, kategori
 
 export default ({history}) => (
     <View>
@@ -61,8 +62,3 @@ export default ({history}) => (
         </ScrollView>
     </View>
 );
-
-{/* <View>
-<Text>Detail Barang</Text>
-<Text onPress={()=>history.goBack()}>Back</Text>
-</View> */}

@@ -6,6 +6,7 @@ import {
 import { Button, WhiteSpace, WingBlank, Modal, Icon, Grid, List} from 'antd-mobile';
 import NavigationBar from 'react-native-navbar';
 import {history} from '../App';
+import {getBarangs, imgUrl} from './RestApi'
 
 const Operation = Modal.operation;
 const Item = List.Item;
@@ -35,15 +36,21 @@ export default class Home extends Component {
   constructor(props){
     super(props);
     this.state={
-      iconLove: []
+      iconLove: [],
+      barangs: []
     }
   }
 
   async componentDidMount(){
     console.log('home');
+
+    // GET BARANGS
+    let barangs = await getBarangs();
+    console.log(barangs);
     
     this.setState({
-      iconLove: new Array(20).fill(false)
+      barangs,
+      iconLove: new Array(barangs.length).fill(false)
     });
   }
 
@@ -56,7 +63,7 @@ export default class Home extends Component {
 
   render() {
     // console.log(imgWidth);
-    let {iconLove} = this.state;
+    let {iconLove, barangs} = this.state;
 
     return (
       <View>
@@ -95,7 +102,7 @@ export default class Home extends Component {
           <WingBlank size='md'>
             <View style={{paddingBottom:50}}>
   
-              <Grid data={data1}
+              <Grid data={barangs}
                 hasLine={false}
                 columnNum={2}
                 itemStyle={{ height:240, }}
@@ -107,7 +114,7 @@ export default class Home extends Component {
                         <Icon type={iconLove[i]==true?'\uE6A3':'\uE6A4'} size="sm" color="#eb4d4b" />
                       </TouchableOpacity>
                     </View>
-                    <Image source={{uri: dataItem.icon}} style={{ width: imgWidth,height:150 }} />
+                    <Image source={{uri: imgUrl+dataItem.image}} style={{ width: imgWidth,height:150 }} />
                     <View style={{justifyContent:'flex-start',alignSelf:'flex-start', paddingLeft:3}}>
                       <Text numberOfLines={2} style={{fontWeight:'bold'}}>Nama xx xxx xxx xxxxx xxx xxx </Text>
                       <Text numberOfLines={1}>Kategori</Text>
