@@ -64,8 +64,8 @@ export default class RegisterUser extends Component {
             alamat: '',
             email: '',
             tlp: '',
-            provinsi:'',
-            kota:'',
+            provinsi:[],
+            kota:[],
             date: now,
             kelamin:1,
 
@@ -92,8 +92,8 @@ export default class RegisterUser extends Component {
             alamat: res.alamat,
             email: res.email,
             tlp: res.tlp,
-            kota: res.id_kota,
-            provinsi: res.id_kota.toString().substr(0, 2)
+            kota: [`${res.id_kota}`],
+            provinsi: [`${res.id_kota.toString().substr(0, 2)}`]
         });
 
         let dataProvinsi = await getProvinsi();

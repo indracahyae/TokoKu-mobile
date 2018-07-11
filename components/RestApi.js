@@ -1,6 +1,6 @@
 import axios from 'axios';
-const baseUrl = 'http://192.168.1.55:3000/restapi/mobile';
-export const imgUrl = 'http://192.168.1.55:3000/images/barang/';
+const baseUrl = 'http://192.168.0.118:3000/restapi/mobile';
+export const imgUrl = 'http://192.168.0.118:3000/images/barang/';
 
 export const getMyProfile = (id) =>
     axios.get(`${baseUrl}/myprofile/${id}`)
