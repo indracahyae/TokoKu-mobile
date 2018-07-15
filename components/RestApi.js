@@ -1,6 +1,6 @@
 import axios from 'axios';
-const baseUrl = 'http://192.168.0.118:3000/restapi/mobile';
-export const imgUrl = 'http://192.168.0.118:3000/images/barang/';
+const baseUrl = 'http://192.168.44.58:3000/restapi/mobile';
+export const imgUrl = 'http://192.168.44.58:3000/images/barang/';
 
 export const getMyProfile = (id) =>
     axios.get(`${baseUrl}/myprofile/${id}`)
@@ -77,6 +77,30 @@ export const updateProfile = (uid,data) =>
 // MENU HOME
 export const getBarangs = () =>
     axios.get(`${baseUrl}/barangs`)
+    .then((res)=>{
+        return res.data;
+    })
+    .catch((error)=>{
+        console.log(error);
+    });
+export const selectBarang = (id) =>
+    axios.get(`${baseUrl}/barangs/${id}`)
+    .then((res)=>{
+        return res.data;
+    })
+    .catch((error)=>{
+        console.log(error);
+    });
+export const addToKeranjang = (data) =>
+    axios.post(`${baseUrl}/keranjang`,data)
+    .then((res)=>{
+        return res.data;
+    })
+    .catch((error)=>{
+        console.log(error);
+    });
+export const getKeranjang = (id) =>
+    axios.get(`${baseUrl}/keranjang/${id}`)
     .then((res)=>{
         return res.data;
     })

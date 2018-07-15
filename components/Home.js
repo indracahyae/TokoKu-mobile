@@ -61,8 +61,19 @@ export default class Home extends Component {
     console.log(this.state.iconLove);
   }
 
+  diskon=(harga,diskon)=>{
+    let res = harga-(harga*(diskon/100));
+    return res; 
+  }
+
+  formatNumber=(number)=>{
+    number = parseInt(number);
+    // number = number.toLocaleString(['ban', 'id']);
+    number = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return number;
+  }
+
   render() {
-    // console.log(imgWidth);
     let {iconLove, barangs} = this.state;
 
     return (
@@ -106,19 +117,28 @@ export default class Home extends Component {
                 hasLine={false}
                 columnNum={2}
                 itemStyle={{ height:240, }}
-                onClick={()=>history.push("/detailBarang")}
+                onClick={()=>console.log('klik')}
                 renderItem={(dataItem,i) => (
                   <View style={{ paddingBottom:0,flexDirection:'column',alignItems:'center',justifyContent:'center' }}>
-                    <View style={{position:'absolute',zIndex:1,top:203,right:5}}>
+                    <View style={{position:'absolute',zIndex:2,top:203,right:5}}>
                       <TouchableOpacity onPress={()=>this.love(i)}>
                         <Icon type={iconLove[i]==true?'\uE6A3':'\uE6A4'} size="sm" color="#eb4d4b" />
                       </TouchableOpacity>
                     </View>
-                    <Image source={{uri: imgUrl+dataItem.image}} style={{ width: imgWidth,height:150 }} />
+                    <TouchableOpacity onPress={()=>history.push("/detailBarang",{id_barang: dataItem.id})}>
+                      <Image source={{uri: imgUrl+dataItem.image}} style={{ width: imgWidth,height:150 }} />
+                    </TouchableOpacity>
                     <View style={{justifyContent:'flex-start',alignSelf:'flex-start', paddingLeft:3}}>
-                      <Text numberOfLines={2} style={{fontWeight:'bold'}}>Nama xx xxx xxx xxxxx xxx xxx </Text>
-                      <Text numberOfLines={1}>Kategori</Text>
-                      <Text >Rp 150.000</Text>
+                      <Text numberOfLines={2} style={{fontWeight:'bold'}}>{dataItem.nama}</Text>
+                      {/* <Text numberOfLines={1}>Kategori</Text> */}
+                      <View style={{flexDirection:'row'}} id='harga'>
+                        <Text 
+                          style={{textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>
+                          Rp {dataItem.harga} 
+                        </Text>
+                        <Text> -{dataItem.diskon}%</Text>
+                      </View>
+                      <Text>Rp {this.formatNumber(this.diskon(dataItem.harga, dataItem.diskon))}</Text>
                     </View>
                   </View>
                 )}

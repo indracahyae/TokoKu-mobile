@@ -15,7 +15,7 @@ referensi -> tokopedia, traveloka, gojek
 
 do list:
 desain ui @paper
-desain ui @coding   /disini
+desain ui @coding  
 tray important modul
 build apk
 try modul was created
@@ -25,7 +25,7 @@ https://www.youtube.com/watch?v=u8UoldEIlnQ
 
 
 SITE MAP (MY)
-Home    : //DISINI (lengkapi ui home)
+Home    : // (lengkapi ui home)
   list barang > detail barang > form pembelian > (masuk keranjang), confirm(lanjut belanja/ bayar)
   jika bayar > kranjang > pembayaran (tanya setuju untuk membayar) > info cara pembayaran & batas waktu nya
 Order   :  
@@ -61,7 +61,20 @@ TRANSAKSI
   -list pay order CRUD
    
 HOME
-  -list barang    /DISINI
+  -list barang    /OK
+  -detail barang  /OK
+  -keranjang      /DISINI
+    save to tabel keranjang
+    get keranjang
+
+  -beli           /DISINI
   -filter barang
-  -detail barang  /DISINI
-  -beli
+  -cari barang
+  -suka
+
+ORDER
+
+  
+  
+  
+
