@@ -1,6 +1,7 @@
 # e-commerce mobile application
 This repo without node_modules folder (we can add manually with => npm i).<br>
-This is still on going project
+This is still on going project.
+now this project not maintained, but still we can get some insight, be aware with deprecated library.
 
 ## Features
 Login <br>
