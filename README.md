@@ -1,7 +1,5 @@
-# e-commerce mobile application
-This repo without node_modules folder (we can add manually with => npm i).<br>
-This is still on going project.
-now this project not maintained, but still we can get some insight, be aware with deprecated library.
+# about
+Personal project for understanding react-native. Also with backend restApi on my github repo "tokoku-admin-web". this mobile app not maintained project, be aware for package library.
 
 ## Features
 Login <br>
@@ -13,7 +11,7 @@ Help <br>
 Order <br>
     - transaction history, payment confirmation <br>
 Home <br>
-    - store front, list of stuff
+    - store front, start shopping
 
 ## Used Technology
 * [reactJs](https://reactjs.org/)
